@@ -1,9 +1,14 @@
 require 'dynamoid'
 require 'dynamoid/tasks/database'
 
-MODELS = File.join(Rails.root, "app/models")
+MODELS = File.join(Rails.root, "app/models");
 
-Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require file }
+Dir[ File.join(MODELS, "*.rb") ].sort.each do |file|
+	begin
+		require file;
+	rescue TypeError
+	end
+end
 
 
 namespace :dynamoid do
